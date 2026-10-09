@@ -1,0 +1,521 @@
+{
+  "name": "ReviewPilot Lite",
+  "nodes": [
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "dbffee29-91a1-41f7-a7a5-f37e38613b0f",
+              "name": "competitor_name",
+              "value": "Test Competitor",
+              "type": "string"
+            },
+            {
+              "id": "c0171190-915d-401c-943f-01acd2ed7fc0",
+              "name": "product_url",
+              "value": "https://www.trustpilot.com/review/example.com",
+              "type": "string"
+            },
+            {
+              "id": "08a7b208-3f49-4f4f-a326-82cc4260dad4",
+              "name": "platform",
+              "value": "trustpilot",
+              "type": "string"
+            },
+            {
+              "id": "c04cefd3-17e7-47e4-9f2c-bf5e407883e9",
+              "name": "max_reviews",
+              "value": 20,
+              "type": "number"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        -880,
+        -256
+      ],
+      "id": "7a74d5bf-2ea5-432e-821f-e2a5e9d3bd59",
+      "name": "Set Inputs"
+    },
+    {
+      "parameters": {
+        "jsCode": "// ============================================\n// ReviewPilot Lite - Phase 2\n// MOCK SCRAPER\n// Later we replace the inside of this node with\n// a real Apify / Firecrawl call.\n// The output schema must stay EXACTLY the same.\n// ============================================\n\nconst reviews = [\n  {\n    review_id: \"r001\",\n    source: \"trustpilot\",\n    rating: 3,\n    title: \"Good bag but zipper worries me\",\n    text: \"I've used this backpack for about two months of daily commuting. The layout is smart and the laptop sleeve fits my 15-inch machine perfectly, but the main zipper already catches and sometimes jams halfway. For this price I expected smoother hardware.\",\n    date: \"2026-08-14\"\n  },\n  {\n    review_id: \"r002\",\n    source: \"trustpilot\",\n    rating: 2,\n    title: \"Zipper broke in week three\",\n    text: \"The main compartment zipper completely separated from the track in week three of normal office use. Support offered a discount on a new bag instead of a replacement. The fabric itself seems fine, which makes the cheap zipper even more frustrating.\",\n    date: \"2026-08-02\"\n  },\n  {\n    review_id: \"r003\",\n    source: \"trustpilot\",\n    rating: 4,\n    title: \"Almost perfect commuter bag\",\n    text: \"Comfortable straps, great pocket organization and it looks professional in meetings. My only gripe is that there is no side pocket for a water bottle, so I have to open the main compartment every time I want a drink.\",\n    date: \"2026-07-28\"\n  },\n  {\n    review_id: \"r004\",\n    source: \"trustpilot\",\n    rating: 3,\n    title: \"Not as waterproof as advertised\",\n    text: \"Got caught in heavy rain and my notebook inside was damp at the corners. The product page says water-resistant fabric but the seams around the top handle clearly let water in. Everything else about the bag is solid.\",\n    date: \"2026-07-19\"\n  },\n  {\n    review_id: \"r005\",\n    source: \"trustpilot\",\n    rating: 2,\n    title: \"Straps dig into shoulders\",\n    text: \"After carrying it for more than 30 minutes the thin shoulder straps dig into my shoulders badly. There is no chest strap to distribute the weight either. I had to buy an aftermarket pad, which defeats the purpose of a premium bag.\",\n    date: \"2026-07-11\"\n  },\n  {\n    review_id: \"r006\",\n    source: \"trustpilot\",\n    rating: 4,\n    title: \"Love the design, wish it had luggage strap\",\n    text: \"The minimalist design gets me compliments everywhere and the magnetic quick-access pocket is genius. I travel monthly for work and really wish it had a trolley sleeve so I could slide it over my suitcase handle.\",\n    date: \"2026-06-30\"\n  },\n  {\n    review_id: \"r007\",\n    source: \"trustpilot\",\n    rating: 3,\n    title: \"Laptop sleeve too tight for 16 inch\",\n    text: \"The padded sleeve is listed as fitting up to 16 inches but my 16-inch laptop only goes in at an angle and scratches against the zipper edge. If they made the sleeve two centimeters wider this would be a five star bag.\",\n    date: \"2026-06-21\"\n  },\n  {\n    review_id: \"r008\",\n    source: \"trustpilot\",\n    rating: 4,\n    title: \"Great product!\",\n    text: \"Great product!\",\n    date: \"2026-06-15\"\n  },\n  {\n    review_id: \"r009\",\n    source: \"trustpilot\",\n    rating: 3,\n    title: \"Fast shipping\",\n    text: \"Fast shipping and good seller.\",\n    date: \"2026-06-10\"\n  },\n  {\n    review_id: \"r010\",\n    source: \"trustpilot\",\n    rating: 2,\n    title: \"Nice item\",\n    text: \"Nice item, thank you.\",\n    date: \"2026-06-05\"\n  },\n  {\n    review_id: \"r011\",\n    source: \"trustpilot\",\n    rating: 2,\n    title: \"Zipper broke in week three\",\n    text: \"The main compartment zipper completely separated from the track in week three of normal office use. Support offered a discount on a new bag instead of a replacement. The fabric itself seems fine, which makes the cheap zipper even more frustrating.\",\n    date: \"2026-06-01\"\n  },\n  {\n    review_id: \"r012\",\n    source: \"trustpilot\",\n    rating: 4,\n    title: \"Solid bag with small annoyances\",\n    text: \"Build quality is better than my last two backpacks and the water-resistant coating handles light drizzle fine. The back panel gets sweaty on summer walks though, and the hidden anti-theft pocket is too small for a passport plus wallet.\",\n    date: \"2026-05-24\"\n  },\n  {\n    review_id: \"r013\",\n    source: \"trustpilot\",\n    rating: 3,\n    title: \"Bottle pocket would make it perfect\",\n    text: \"Organization is excellent and the materials feel premium, but like others said there is nowhere to put a water bottle or umbrella. I also wish the side compression straps were stronger so the bag doesn't bulge when half empty.\",\n    date: \"2026-05-17\"\n  },\n  {\n    review_id: \"r014\",\n    source: \"trustpilot\",\n    rating: 4,\n    title: \"Comfortable but runs small\",\n    text: \"I'm 6 foot 2 and the torso length feels short, so the bag sits high on my back. A hip belt option would solve this. Otherwise the stitching and fabric quality are outstanding and it survives daily bike commutes.\",\n    date: \"2026-05-09\"\n  },\n  {\n    review_id: \"r015\",\n    source: \"trustpilot\",\n    rating: 5,\n    title: \"Best backpack ever\",\n    text: \"Best backpack I have ever owned, honestly no complaints at all. The zipper, straps, fabric and pockets all feel premium and it survived a year of daily abuse without a single issue.\",\n    date: \"2026-04-30\"\n  },\n  {\n    review_id: \"r016\",\n    source: \"trustpilot\",\n    rating: 1,\n    title: \"Terrible experience\",\n    text: \"Terrible experience, the bag arrived with a broken buckle and customer service ignored my emails for three weeks. I want a full refund immediately.\",\n    date: \"2026-04-22\"\n  }\n];\n\nreturn reviews.map(review => ({ json: review }));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -720,
+        -256
+      ],
+      "id": "6703ba72-a4f7-46fb-bdbb-6f42f50db57b",
+      "name": "Scrape Reviews"
+    },
+    {
+      "parameters": {
+        "jsCode": "// ============================================\n// ReviewPilot Lite - Phase 3\n// FILTER REVIEWS (Cleaning Layer)\n// Output  = kept (clean reviews)\n// ============================================\n\nconst items = $input.all();\n\nconst MIN_WORDS = 15;\nconst MIN_CHARS = 80;\n\nconst spamPhrases = [\n  'great product',\n  'fast shipping',\n  'good seller',\n  'five stars',\n  'as described',\n  'highly recommend',\n  'thank you',\n  'nice item',\n  'arrived quickly',\n  'perfect seller'\n];\n\nconst seenTexts = new Set();\nconst kept = [];\nconst removed = [];\n\nfor (const item of items) {\n  const r = item.json;\n  const text = (r.text || '').toString().trim();\n  const rating = Number(r.rating);\n  const words = text.split(/\\s+/).filter(Boolean).length;\n\n  let reason = null;\n\n  // Rule 1: keep only 2, 3, 4-star reviews\n  if (!rating || rating < 2 || rating > 4) {\n    reason = 'rating_out_of_scope';\n  }\n\n  // Rule 2: remove low-effort reviews\n  if (!reason && (words < MIN_WORDS || text.length < MIN_CHARS)) {\n    reason = 'too_short_or_low_effort';\n  }\n\n  // Rule 3: remove spam-pattern reviews\n  if (!reason) {\n    const lower = text.toLowerCase();\n    const spamScore = spamPhrases.filter(p => lower.includes(p)).length;\n    if (spamScore >= 2) reason = 'spam_pattern';\n  }\n\n  // Rule 4: remove exact duplicates\n  if (!reason) {\n    const key = text.toLowerCase().replace(/\\s+/g, ' ');\n    if (seenTexts.has(key)) {\n      reason = 'duplicate';\n    } else {\n      seenTexts.add(key);\n    }\n  }\n\n  if (reason) {\n    removed.push({\n      json: {\n        review_id: r.review_id,\n        rating: rating,\n        reason: reason,\n        word_count: words,\n        text_preview: text.slice(0, 60)\n      }\n    });\n  } else {\n    kept.push(item);\n  }\n}\n\n// Output\n// Quality gate: never continue with too few clean reviews\nif (kept.length < 3) {\n  throw new Error(\n    'Quality gate failed: only ' + kept.length +\n    ' clean reviews found (minimum 3). Check the product URL, platform, or scraper.'\n  );\n}\n\nreturn kept;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -560,
+        -256
+      ],
+      "id": "9072a460-762a-4158-9408-904d6cca3ca1",
+      "name": "Filter Reviews"
+    },
+    {
+      "parameters": {
+        "jsCode": "// ============================================\n// ReviewPilot Lite - Phase 4\n// CREATE REVIEW BATCHES\n// Splits clean reviews into small batches so the\n// LLM gets focused, high-quality input.\n// ============================================\n\nconst reviews = $input.all().map(item => item.json);\n\nconst batchSize = 5;\nconst batches = [];\n\nfor (let i = 0; i < reviews.length; i += batchSize) {\n  batches.push(reviews.slice(i, i + batchSize));\n}\n\nreturn batches.map((batch, index) => ({\n  json: {\n    batch_number: index + 1,\n    total_batches: batches.length,\n    reviews: batch\n  }\n}));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -384,
+        -256
+      ],
+      "id": "dd24803e-799e-4375-9d9f-3c5058be8914",
+      "name": "Create Review Batches"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.groq.com/openai/v1/chat/completions",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Authorization",
+              "value": "Bearer REPLACE_WITH_YOUR_NEW_GROQ_KEY"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ $json.requestBody }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.5,
+      "position": [
+        -32,
+        -256
+      ],
+      "id": "fbdda857-e7ce-45f8-8efd-f895d5165387",
+      "name": "AI Aspect Analysis"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "9dc252bc-c7e6-4ef9-899d-7101298e3e39",
+              "name": "aiJson",
+              "value": "={{ $json.choices[0].message.content }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [
+        160,
+        -256
+      ],
+      "id": "a9a73f05-83d1-4834-b27e-838f152e6386",
+      "name": "Normalize AI Output"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// ============================================\n// ReviewPilot Lite - Phase 4\n// BUILD AI REQUEST (Groq via HTTP Request node)\n// Assembles the request body so the HTTP node\n// never has to deal with escaping or {{ }}.\n// ============================================\n\nconst meta = $('Set Inputs').first().json;\n\nconst systemPrompt = `You are ReviewPilot, a product-intelligence analyst.\n\nYou will receive customer reviews (2-4 stars) for a competitor product.\n\nPerform aspect-based sentiment analysis. Do not summarize generally.\nExtract only information present in the reviews. Never invent anything.\nIgnore shipping-only comments unless they reveal a product issue.\nNever include reviewer personal data.\n\nIdentify product aspects (for example: zipper, straps, waterproofing, laptop sleeve, pockets, comfort, fabric, design, sizing) and the sentiment toward each.\n\nThen produce exactly three lists:\n\n- exploitable_weaknesses: features customers repeatedly complain about. These can be used against the competitor in ads and positioning.\n- product_gaps: features customers explicitly ask for or imply are missing.\n- table_stakes: features customers love or expect as a minimum standard to compete.\n\nFor each entry provide:\n- name: short feature name\n- insight: one clear business sentence\n- mention_count: how many reviews in this batch mention it\n- severity: low, medium, or high (omit for table_stakes)\n- evidence_quotes: up to 2 short verbatim quotes, max 15 words each\n\nReturn ONLY valid JSON. No markdown. No explanations. Exact shape:\n\n{\n  \"exploitable_weaknesses\": [\n    { \"name\": \"\", \"insight\": \"\", \"mention_count\": 0, \"severity\": \"\", \"evidence_quotes\": [] }\n  ],\n  \"product_gaps\": [\n    { \"name\": \"\", \"insight\": \"\", \"mention_count\": 0, \"severity\": \"\", \"evidence_quotes\": [] }\n  ],\n  \"table_stakes\": [\n    { \"name\": \"\", \"insight\": \"\", \"mention_count\": 0, \"evidence_quotes\": [] }\n  ]\n}`;\n\nconst userPrompt = `Competitor: ${meta.competitor_name}\nProduct URL: ${meta.product_url}\nBatch ${$json.batch_number} of ${$json.total_batches}\n\nAnalyze these reviews:\n\n${JSON.stringify($json.reviews)}`;\n\nreturn {\n  json: {\n    requestBody: {\n      model: 'openai/gpt-oss-120b',\n      messages: [\n        { role: 'system', content: systemPrompt },\n        { role: 'user', content: userPrompt }\n      ],\n      temperature: 0\n    }\n  }\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -208,
+        -256
+      ],
+      "id": "6f4c52d5-7b16-4d21-bd65-b1deba2c1087",
+      "name": "Build AI Request"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// ============================================\n// ReviewPilot Lite - Phase 5 (Part 1)\n// PARSE AI JSON\n// Safely parses the AI text into JSON.\n// Handles empty strings (rate limits) gracefully.\n// ============================================\n\nconst aiJsonStr = $json.aiJson || \"\";\n\n// If the AI returned empty (rate limit), return empty arrays\nif (!aiJsonStr.trim()) {\n  return { \n    json: { \n      exploitable_weaknesses: [], \n      product_gaps: [], \n      table_stakes: [], \n      _empty_batch: true \n    } \n  };\n}\n\n// Clean markdown fences if the AI added them\nlet cleanStr = aiJsonStr.replace(/^```json\\s*/i, '').replace(/```$/g, '').trim();\n\n// Extract just the JSON object if there's extra text\nconst firstBrace = cleanStr.indexOf('{');\nconst lastBrace = cleanStr.lastIndexOf('}');\nif (firstBrace !== -1 && lastBrace !== -1) {\n  cleanStr = cleanStr.slice(firstBrace, lastBrace + 1);\n}\n\ntry {\n  const parsed = JSON.parse(cleanStr);\n  return { json: { ...parsed, _empty_batch: false } };\n} catch (error) {\n  // If JSON is totally broken, don't crash, just return empty\n  return { \n    json: { \n      exploitable_weaknesses: [], \n      product_gaps: [], \n      table_stakes: [], \n      _parse_error: error.message \n    } \n  };\n}"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        352,
+        -256
+      ],
+      "id": "721a7e84-e596-4375-8d61-e82db36018a1",
+      "name": " Parse AI JSON"
+    },
+    {
+      "parameters": {
+        "jsCode": "// ============================================\n// ReviewPilot Lite - Phase 5 (Part 2)\n// AGGREGATE INSIGHTS\n// Merges all batches, sums mention counts,\n// deduplicates features, and sorts by frequency.\n// ============================================\n\nconst items = $input.all();\n\nconst merged = {\n  exploitable_weaknesses: [],\n  product_gaps: [],\n  table_stakes: []\n};\n\n// Helper to normalize feature names for deduplication\nfunction normalizeKey(text) {\n  return (text || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();\n}\n\nfunction addItem(type, entry) {\n  if (!entry || !entry.name) return;\n  const key = normalizeKey(entry.name);\n  \n  // Check if we already have this feature from a previous batch\n  let existing = merged[type].find(i => normalizeKey(i.name) === key);\n\n  if (existing) {\n    // Sum the mention counts\n    existing.mention_count = (Number(existing.mention_count) || 0) + (Number(entry.mention_count) || 1);\n    // Combine evidence quotes (max 5)\n    existing.evidence_quotes = [\n      ...new Set([...(existing.evidence_quotes || []), ...(entry.evidence_quotes || [])])\n    ].slice(0, 5);\n    // Escalate severity if needed\n    if (entry.severity === 'high') existing.severity = 'high';\n  } else {\n    // Add as a new feature\n    merged[type].push({\n      name: entry.name,\n      insight: entry.insight || '',\n      mention_count: Number(entry.mention_count) || 1,\n      severity: entry.severity || 'medium',\n      evidence_quotes: (entry.evidence_quotes || []).slice(0, 5)\n    });\n  }\n}\n\n// Loop through all parsed batches\nfor (const item of items) {\n  const data = item.json;\n  \n  // Skip empty or broken batches safely\n  if (data._empty_batch || data._parse_error) continue;\n\n  (data.exploitable_weaknesses || []).forEach(e => addItem('exploitable_weaknesses', e));\n  (data.product_gaps || []).forEach(e => addItem('product_gaps', e));\n  (data.table_stakes || []).forEach(e => addItem('table_stakes', e));\n}\n\n// Sort everything by mention_count (highest first)\nmerged.exploitable_weaknesses.sort((a, b) => b.mention_count - a.mention_count);\nmerged.product_gaps.sort((a, b) => b.mention_count - a.mention_count);\nmerged.table_stakes.sort((a, b) => b.mention_count - a.mention_count);\n\nreturn [{ json: merged }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        528,
+        -256
+      ],
+      "id": "9de5a240-3bd9-47e2-ab69-7b5037c476c8",
+      "name": "Aggregate Insights"
+    },
+    {
+      "parameters": {
+        "jsCode": "// ============================================\n// ReviewPilot Lite - Phase 6\n// FORMAT OUTPUT ROWS\n// Flattens the merged report into spreadsheet rows\n// tagged by insight type + business action.\n// ============================================\n\nconst data = $input.first().json;\nconst meta = $('Set Inputs').first().json;\nconst runId = new Date().toISOString().replace(/[:.]/g, '-');\n\nconst rows = [];\n\nfunction addRows(type, list, actionPrefix) {\n  for (const item of list || []) {\n    rows.push({\n      json: {\n        Timestamp: new Date().toISOString(),\n        RunID: runId,\n        Competitor: meta.competitor_name,\n        ProductURL: meta.product_url,\n        Platform: meta.platform,\n        InsightType: type,\n        Feature: item.name,\n        Insight: item.insight,\n        MentionCount: item.mention_count,\n        Severity: item.severity || '',\n        Evidence: (item.evidence_quotes || []).join(' | '),\n        RecommendedAction: actionPrefix + ' ' + (item.insight || '')\n      }\n    });\n  }\n}\n\naddRows('Exploitable Weakness', data.exploitable_weaknesses, 'Use in ads and landing pages:');\naddRows('Product Gap', data.product_gaps, 'Add to product roadmap:');\naddRows('Table Stake', data.table_stakes, 'Must match or exceed:');\n\nreturn rows;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        720,
+        -256
+      ],
+      "id": "be426b92-63b0-454e-be41-b8ec208070aa",
+      "name": "Format Output Rows"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "REPLACE_WITH_YOUR_GOOGLE_SHEET_ID",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Insights",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1D3Dpk0h8PDmgIsiQ911ZU-NqW1TLnj7q3e2Uy2uSOxM/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "Timestamp",
+              "displayName": "Timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Competitor",
+              "displayName": "Competitor",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "ProductURL",
+              "displayName": "ProductURL",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Platform",
+              "displayName": "Platform",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "InsightType",
+              "displayName": "InsightType",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Feature",
+              "displayName": "Feature",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Insight",
+              "displayName": "Insight",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "MentionCount",
+              "displayName": "MentionCount",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Severity",
+              "displayName": "Severity",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "Evidence",
+              "displayName": "Evidence",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "RecommendedAction",
+              "displayName": "RecommendedAction",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        912,
+        -256
+      ],
+      "id": "75408707-60e3-40a0-9773-451a031ffa44",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "keo49UMgPDWCZLGA",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "formTitle": "ReviewPilot Lite — Competitor Review Intelligence",
+        "formDescription": "Enter a competitor product page. You will receive a weakness / gap / table-stake report.",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Competitor Name",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Product URL",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Platform",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Max Reviews",
+              "fieldType": "number"
+            },
+            {
+              "fieldLabel": "Client Email",
+              "fieldType": "email"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.6,
+      "position": [
+        -1056,
+        -256
+      ],
+      "id": "4b23a4cb-10bc-4967-a66e-006d422edef0",
+      "name": "On form submission",
+      "webhookId": "4f6d56bf-dd3e-4b6b-81f3-8ff67ecc8f63"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Set Inputs": {
+      "main": [
+        [
+          {
+            "node": "Scrape Reviews",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Scrape Reviews": {
+      "main": [
+        [
+          {
+            "node": "Filter Reviews",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filter Reviews": {
+      "main": [
+        [
+          {
+            "node": "Create Review Batches",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Review Batches": {
+      "main": [
+        [
+          {
+            "node": "Build AI Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Aspect Analysis": {
+      "main": [
+        [
+          {
+            "node": "Normalize AI Output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build AI Request": {
+      "main": [
+        [
+          {
+            "node": "AI Aspect Analysis",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalize AI Output": {
+      "main": [
+        [
+          {
+            "node": " Parse AI JSON",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    " Parse AI JSON": {
+      "main": [
+        [
+          {
+            "node": "Aggregate Insights",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Aggregate Insights": {
+      "main": [
+        [
+          {
+            "node": "Format Output Rows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Format Output Rows": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "Set Inputs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "681301b8-60cf-4b04-9ea5-be8ef9740734",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "90dcb233e8ce5b0b5150ff2b898ac11423440216a5a43c15ba2623c16891c48d"
+  },
+  "nodeGroups": [],
+  "id": "JyECBIhbcZI9jzkW",
+  "tags": []
+}
